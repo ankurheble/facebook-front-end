@@ -11,21 +11,21 @@ export default function Post(props) {
             <img className="img-circle" src="https://picsum.photos/40/40" />
             <div className="flex column ml-2">
               <p className="mb-0 text-primary">user.name</p>
-              <p className="text-muted text-sm">Post.CreatedAt</p>
+              <p className="text-muted text-sm">{props.post.createdAt}</p>
             </div>
           </div>
           <div className="flex column">
-            <p>post.content</p>
+            <p>{props.post.content}</p>
           </div>
           <hr />
           <div className="flex">
-            <span className="text-warning mr-2" id="likes-${post.id}">
-              Post.Likes Likes
+            <span className="text-warning mr-2">
+              {props.post.likes} Likes
             </span>
             <a
               className="no-anchor-color fa fa-thumbs-up fa-white m-auto like-btn"
               href="#"
-              data-id="post.id"
+              data-id={props.post.id}
               data-resource-type="post"
             >
               Like
@@ -45,13 +45,17 @@ export default function Post(props) {
           </div>
           <hr />
           <div className="comments">
-            <ul className="list-group" data-id="post.id">
-              <Comment />
+            <ul className="list-group" data-id={props.post.id}>
+            {
+              props.post.comments.map(comment => {
+                return  <Comment key={comment._id} comment={comment}/>;
+              })
+            }
             </ul>
           </div>
         </div>
         <div className="card-footer bg-transparent">
-          <CreateComment />
+          <CreateComment post={props.post} onCreateComment={props.onCreateComment}/>
         </div>
       </div>
     </React.Fragment>

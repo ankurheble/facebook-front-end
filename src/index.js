@@ -12,7 +12,7 @@ ReactDOM.render(
     <React.Fragment>
         <Route exact path="/" component={App}/>
         <Route exact path="/user/profile" component={Profile}/>
-        <Route exact path="/auth/login" component={Login}/>
+        {/* <Route exact path="/auth/login" component={Login}/> */}
     </React.Fragment>
   </Router>,
   document.getElementById("root")

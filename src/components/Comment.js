@@ -8,12 +8,12 @@ export default function Comment(props){
                 <div className="flex column ml-2">
                     <div className="flex mb-0 ml-2 comment-content">
                         <p className="mr-2 text-primary">user.name</p>
-                        <p>comment.content</p>
+                        <p>{props.comment.content}</p>
                     </div>
                     <div className="ml-2 flex">
-                        <span className="text-warning mr-2 text-sm" id="likes-${comment.id}">Comment.Likes Likes </span>
-                        <a className="text-sm no-underline like-btn" href="#" data-id="comment.id" data-resource-type="comment" > Like</a>
-                        <p className="text-sm ml-2 text-muted">Comment.createdAt</p>
+                        <span className="text-warning mr-2 text-sm" id={`likes-${props.comment.id}`}>{props.comment.likes} Likes </span>
+                        <a className="text-sm no-underline like-btn" href="#" data-id={props.comment.id} data-resource-type="comment" > Like</a>
+                        <p className="text-sm ml-2 text-muted">{props.comment.createdAt}</p>
                     </div>
                 </div>
             </div>
