@@ -19,17 +19,16 @@ export default function Post(props) {
           </div>
           <hr />
           <div className="flex">
-            <span className="text-warning mr-2">
-              {props.post.likes} Likes
-            </span>
-            <a
-              className="no-anchor-color fa fa-thumbs-up fa-white m-auto like-btn"
-              href="#"
-              data-id={props.post.id}
-              data-resource-type="post"
+            <span className="text-warning mr-2">{props.post.likes} Likes</span>
+            <div
+              className="no-anchor-color fa fa-thumbs-up fa-white m-auto like-button"
+              onClick={e => {
+                e.preventDefault();
+                props.onLikePost(props.post._id);
+              }}
             >
               Like
-            </a>
+            </div>
             <a
               className="no-anchor-color fa fa-comment fa-white m-auto"
               href="#"
@@ -46,16 +45,23 @@ export default function Post(props) {
           <hr />
           <div className="comments">
             <ul className="list-group" data-id={props.post.id}>
-            {
-              props.post.comments.map(comment => {
-                return  <Comment key={comment._id} comment={comment}/>;
-              })
-            }
+              {props.post.comments.map(comment => {
+                return (
+                  <Comment
+                    key={comment._id}
+                    comment={comment}
+                    onLikeComment={props.onLikeComment}
+                  />
+                );
+              })}
             </ul>
           </div>
         </div>
         <div className="card-footer bg-transparent">
-          <CreateComment post={props.post} onCreateComment={props.onCreateComment}/>
+          <CreateComment
+            post={props.post}
+            onCreateComment={props.onCreateComment}
+          />
         </div>
       </div>
     </React.Fragment>

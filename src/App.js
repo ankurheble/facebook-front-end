@@ -40,6 +40,37 @@ class App extends Component {
     });
   };
 
+  onLikePost = postId => {
+    Axios.post(`http://localhost:3000/posts/${postId}/likes`).then(response => {
+      if(response.data.updatedLikes){
+        let posts = this.state.posts;
+        posts.find(post => {
+          return post._id === postId
+        }).likes ++ ;
+        this.setState({
+          posts : posts
+        })
+      }
+    })
+  }
+
+  onLikeComment = comment => {
+    ///comments/:id/likes
+    Axios.post(`http://localhost:3000/comments/${comment._id}/likes`).then(response => {
+      if(response.data.updatedLikes){
+        let posts = this.state.posts;
+        posts.find(post => {
+          return post._id === comment.post
+        }).comments.find(comment1 => {
+          return comment1._id === comment._id
+        }).likes ++;
+        this.setState({
+          posts : posts
+        })
+      }
+    })
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -49,6 +80,8 @@ class App extends Component {
             posts={this.state.posts}
             onCreateComment={this.onCreateComment}
             onCreatePost={this.onCreatePost}
+            onLikePost={this.onLikePost}
+            onLikeComment={this.onLikeComment}
           />
         </div>
       </React.Fragment>
